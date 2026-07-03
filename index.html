@@ -1,209 +1,513 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HOUND DOG NFC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070408" />
+  <title>HOUND DOG | NFC ROCK EXPERIENCE</title>
 
   <style>
     :root {
-      --cd: url("https://www.dropbox.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&st=13aozqff&raw=1");
-      --bg: url("https://www.dropbox.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&st=r5ffo12u&raw=1");
+      --red: #f52c35;
+      --red-dark: #8d0910;
+      --black: #070408;
+
+      --bg-image: url("https://www.dropbox.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&raw=1");
+
+      --cd-image: url("https://www.dropbox.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&raw=1");
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      background: var(--black);
+    }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, sans-serif;
-      color: white;
-      background: #050505;
-      overflow-x: hidden;
+      min-width: 320px;
+      background: var(--black);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: var(--bg-image);
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      filter: saturate(1.08) contrast(1.05);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(3, 2, 7, 0.2) 0%,
+          rgba(4, 2, 6, 0.45) 38%,
+          rgba(0, 0, 0, 0.94) 82%,
+          #000 100%
+        );
     }
 
     .page {
-      min-height: 100vh;
-      background-image:
-        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.9)),
-        var(--bg);
-      background-size: cover;
-      background-position: center top;
-      padding: 38px 20px 46px;
+      width: min(100%, 620px);
+      margin: 0 auto;
+      padding:
+        max(26px, env(safe-area-inset-top))
+        16px
+        max(42px, env(safe-area-inset-bottom));
       text-align: center;
     }
 
-    .tag {
-      color: #ff3434;
-      letter-spacing: 7px;
-      font-size: 12px;
-      margin-bottom: 18px;
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 5px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(52px, 14vw, 96px);
-      line-height: .9;
-      color: #d71920;
-      font-weight: 900;
-      letter-spacing: -2px;
-      text-shadow: 0 0 25px rgba(255,0,0,.45);
+      color: var(--red);
+      font-size: clamp(48px, 14vw, 78px);
+      font-weight: 1000;
+      line-height: 0.88;
+      letter-spacing: -3px;
+      text-shadow:
+        0 0 20px rgba(245, 44, 53, 0.5),
+        0 8px 28px rgba(0, 0, 0, 0.8);
     }
 
-    .copy {
+    .catch {
       margin: 18px 0 6px;
-      font-size: 30px;
-      font-weight: bold;
-      text-shadow: 0 0 18px black;
+      font-size: clamp(24px, 7vw, 34px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-shadow: 0 3px 15px #000;
     }
 
     .since {
-      color: #ff3434;
-      letter-spacing: 8px;
-      font-size: 12px;
-      margin-bottom: 28px;
+      margin: 0 0 25px;
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 7px;
+    }
+
+    .disc-button {
+      position: relative;
+      display: block;
+      width: min(82vw, 410px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      filter: drop-shadow(0 0 28px rgba(245, 44, 53, 0.62));
+    }
+
+    .disc-button:active {
+      transform: scale(0.97);
     }
 
     .disc {
-      width: min(78vw, 430px);
-      aspect-ratio: 1 / 1;
-      margin: 0 auto 28px;
-      background-image: var(--cd);
+      width: 100%;
+      height: 100%;
+      background-image: var(--cd-image);
       background-size: cover;
       background-position: center;
       border-radius: 50%;
-      animation: spin 9s linear infinite;
-      filter: drop-shadow(0 0 28px rgba(255,0,0,.55));
+      animation: rotate-disc 12s linear infinite;
+      animation-play-state: paused;
     }
 
-    @keyframes spin {
+    .disc.is-playing {
+      animation-duration: 4s;
+      animation-play-state: running;
+    }
+
+    @keyframes rotate-disc {
       to {
         transform: rotate(360deg);
       }
     }
 
-    .play-title {
-      color: #ff3434;
-      letter-spacing: 3px;
-      font-weight: bold;
-      margin: 12px 0 18px;
+    .disc-status {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 30px);
+      padding: 10px 16px;
+      border: 1px solid rgba(245, 44, 53, 0.9);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.72);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 20px rgba(245, 44, 53, 0.34);
+      pointer-events: none;
     }
 
-    .song {
-      max-width: 620px;
-      margin: 12px auto;
+    .disc-status.playing {
+      color: var(--red);
+    }
+
+    .player-box {
+      display: none;
+      margin: 22px auto 0;
+      overflow: hidden;
+      border: 1px solid rgba(245, 44, 53, 0.5);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.68);
+      box-shadow: 0 0 28px rgba(245, 44, 53, 0.2);
+    }
+
+    .player-box.show {
+      display: block;
+    }
+
+    #spotify-player iframe {
+      display: block;
+      border: 0;
+    }
+
+    .section-title {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 15px 18px;
-      border: 1px solid rgba(255, 52, 52, .7);
-      border-radius: 14px;
-      background: rgba(0,0,0,.62);
-      color: white;
-      text-decoration: none;
-      box-shadow: 0 0 18px rgba(255,0,0,.16);
-      backdrop-filter: blur(8px);
+      justify-content: center;
+      gap: 10px;
+      margin: 30px 0 16px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 4px;
     }
 
-    .play {
+    .section-title::before,
+    .section-title::after {
+      content: "";
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red));
+    }
+
+    .section-title::after {
+      transform: scaleX(-1);
+    }
+
+    .track-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .track {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 68px;
+      padding: 12px;
+      gap: 13px;
+      border: 1px solid rgba(245, 44, 53, 0.62);
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .track:active {
+      transform: scale(0.985);
+    }
+
+    .track.active {
+      border-color: var(--red);
+      box-shadow: 0 0 20px rgba(245, 44, 53, 0.28);
+    }
+
+    .track-play {
+      display: grid;
+      flex: 0 0 auto;
       width: 38px;
       height: 38px;
-      border-radius: 50%;
-      border: 1px solid #ff3434;
-      display: grid;
       place-items: center;
-      color: #ff3434;
-      flex: 0 0 auto;
+      border: 1px solid var(--red);
+      border-radius: 50%;
+      color: var(--red);
+      font-size: 13px;
     }
 
-    .song-name {
-      text-align: left;
-      font-size: 17px;
-      font-weight: bold;
+    .track-info {
+      min-width: 0;
+      flex: 1;
     }
 
-    .artist {
-      text-align: left;
-      color: #aaa;
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .spotify {
-      max-width: 620px;
-      margin: 28px auto 0;
-      display: block;
-      padding: 18px;
-      border-radius: 999px;
-      color: #ff3434;
-      border: 1px solid #ff3434;
-      background: rgba(0,0,0,.65);
-      text-decoration: none;
+    .track-name {
+      overflow: hidden;
+      font-size: 15px;
       font-weight: 900;
-      box-shadow: 0 0 24px rgba(255,0,0,.25);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .track-artist {
+      margin-top: 4px;
+      color: #aaa;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .spotify-mark {
+      color: #aaa;
+      font-size: 20px;
+    }
+
+    .open-spotify {
+      display: block;
+      margin: 24px 0 0;
+      padding: 17px 18px;
+      border: 1px solid var(--red);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      color: var(--red);
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(245, 44, 53, 0.2);
     }
 
     .footer {
       margin-top: 34px;
-      color: #777;
-      font-size: 11px;
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 10px;
       letter-spacing: 3px;
+    }
+
+    @media (min-width: 640px) {
+      .page {
+        padding-top: 42px;
+      }
+
+      .disc-button {
+        width: 390px;
+      }
     }
   </style>
 </head>
 
 <body>
   <main class="page">
-    <div class="tag">NFC ROCK EXPERIENCE</div>
+    <p class="eyebrow">NFC ROCK EXPERIENCE</p>
 
     <h1>HOUND DOG</h1>
+    <div class="catch">魂を鳴らせ。</div>
+    <p class="since">SINCE 1980</p>
 
-    <div class="copy">魂を鳴らせ。</div>
-    <div class="since">SINCE 1980</div>
+    <!-- CDをタップすると再生 -->
+    <button class="disc-button" id="discButton" aria-label="CDをタップして再生">
+      <div class="disc" id="disc"></div>
+      <div class="disc-status" id="discStatus">▶ CDをタップして再生</div>
+    </button>
 
-    <div class="disc"></div>
+    <!-- Spotifyプレーヤー -->
+    <div class="player-box" id="playerBox">
+      <div id="spotify-player"></div>
+    </div>
 
-    <div class="play-title">PLAY MUSIC</div>
+    <div class="section-title">PLAY MUSIC</div>
 
-    <a class="song" href="https://open.spotify.com/search/ff%20%E3%83%95%E3%82%A9%E3%83%AB%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A2%20HOUND%20DOG" target="_blank">
-      <div class="play">▶</div>
-      <div>
-        <div class="song-name">ff（フォルティシモ）</div>
-        <div class="artist">HOUND DOG</div>
-      </div>
-    </a>
+    <div class="track-list">
+      <button
+        class="track active"
+        data-uri="spotify:track:23a4YCoujGcwDqbD9HWLrC"
+        data-name="ff（フォルティシモ）"
+      >
+        <div class="track-play">▶</div>
+        <div class="track-info">
+          <div class="track-name">ff（フォルティシモ）</div>
+          <div class="track-artist">大友康平 / HOUND DOG</div>
+        </div>
+        <div class="spotify-mark">◉</div>
+      </button>
 
-    <a class="song" href="https://open.spotify.com/search/ONLY%20LOVE%20HOUND%20DOG" target="_blank">
-      <div class="play">▶</div>
-      <div>
-        <div class="song-name">ONLY LOVE</div>
-        <div class="artist">HOUND DOG</div>
-      </div>
-    </a>
+      <button
+        class="track"
+        data-uri="spotify:track:6iy11k0Q215DqrCrlG9RXZ"
+        data-name="ONLY LOVE"
+      >
+        <div class="track-play">▶</div>
+        <div class="track-info">
+          <div class="track-name">ONLY LOVE</div>
+          <div class="track-artist">大友康平 / HOUND DOG</div>
+        </div>
+        <div class="spotify-mark">◉</div>
+      </button>
 
-    <a class="song" href="https://open.spotify.com/search/BRIDGE%20%E3%81%82%E3%81%AE%E6%A9%8B%E3%82%92%E3%82%8F%E3%81%9F%E3%82%8B%E3%81%A8%E3%81%8D%20HOUND%20DOG" target="_blank">
-      <div class="play">▶</div>
-      <div>
-        <div class="song-name">BRIDGE〜あの橋をわたるとき〜</div>
-        <div class="artist">HOUND DOG</div>
-      </div>
-    </a>
+      <button
+        class="track"
+        data-uri="spotify:track:10NFZL2J9DG8qrCDEP4mPX"
+        data-name="BRIDGE ～あの橋をわたるとき～"
+      >
+        <div class="track-play">▶</div>
+        <div class="track-info">
+          <div class="track-name">BRIDGE ～あの橋をわたるとき～</div>
+          <div class="track-artist">大友康平 / HOUND DOG</div>
+        </div>
+        <div class="spotify-mark">◉</div>
+      </button>
 
-    <a class="song" href="https://open.spotify.com/search/ROCKS%20HOUND%20DOG" target="_blank">
-      <div class="play">▶</div>
-      <div>
-        <div class="song-name">R★O★C★K★S</div>
-        <div class="artist">HOUND DOG</div>
-      </div>
-    </a>
+      <button
+        class="track"
+        data-uri="spotify:track:3mFxdqsVSvuZCmkqZFC5fb"
+        data-name="ROCKS"
+      >
+        <div class="track-play">▶</div>
+        <div class="track-info">
+          <div class="track-name">ROCKS</div>
+          <div class="track-artist">大友康平 / HOUND DOG</div>
+        </div>
+        <div class="spotify-mark">◉</div>
+      </button>
+    </div>
 
-    <a class="spotify" href="https://open.spotify.com/search/HOUND%20DOG" target="_blank">
-      SpotifyでHOUND DOGを聴く
+    <a
+      class="open-spotify"
+      href="https://open.spotify.com/artist/2y7JQdXnyFymxy4V0HOUND"
+      target="_blank"
+      rel="noopener"
+    >
+      SpotifyでHOUND DOGを開く →
     </a>
 
     <div class="footer">© NFC ROCK EXPERIENCE</div>
   </main>
+
+  <!-- Spotify公式IFrame API -->
+  <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+  <script>
+    const discButton = document.getElementById("discButton");
+    const disc = document.getElementById("disc");
+    const discStatus = document.getElementById("discStatus");
+    const playerBox = document.getElementById("playerBox");
+    const spotifyPlayer = document.getElementById("spotify-player");
+    const tracks = [...document.querySelectorAll(".track")];
+
+    let controller = null;
+    let activeUri = "spotify:track:23a4YCoujGcwDqbD9HWLrC";
+    let activeName = "ff（フォルティシモ）";
+    let isPlaying = false;
+    let pendingPlay = false;
+
+    function updateDiscState(playing) {
+      isPlaying = playing;
+
+      disc.classList.toggle("is-playing", playing);
+      discStatus.classList.toggle("playing", playing);
+
+      if (playing) {
+        discStatus.textContent = "❚❚ タップで一時停止";
+      } else {
+        discStatus.textContent = "▶ CDをタップして再生";
+      }
+    }
+
+    function setActiveTrack(uri) {
+      tracks.forEach((track) => {
+        track.classList.toggle("active", track.dataset.uri === uri);
+      });
+    }
+
+    function loadAndPlay(uri, name) {
+      activeUri = uri;
+      activeName = name;
+
+      playerBox.classList.add("show");
+      setActiveTrack(uri);
+
+      if (!controller) {
+        pendingPlay = true;
+        discStatus.textContent = "Spotifyを読み込み中...";
+        return;
+      }
+
+      controller.loadUri(uri);
+      updateDiscState(true);
+
+      setTimeout(() => {
+        controller.play();
+      }, 250);
+    }
+
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const options = {
+        uri: activeUri,
+        width: "100%",
+        height: 152,
+        theme: "dark"
+      };
+
+      IFrameAPI.createController(spotifyPlayer, options, (EmbedController) => {
+        controller = EmbedController;
+
+        if (pendingPlay) {
+          pendingPlay = false;
+          loadAndPlay(activeUri, activeName);
+        }
+      });
+    };
+
+    discButton.addEventListener("click", () => {
+      playerBox.classList.add("show");
+
+      if (!controller) {
+        pendingPlay = true;
+        discStatus.textContent = "Spotifyを読み込み中...";
+        return;
+      }
+
+      if (isPlaying) {
+        controller.pause();
+        updateDiscState(false);
+      } else {
+        controller.loadUri(activeUri);
+
+        setTimeout(() => {
+          controller.play();
+          updateDiscState(true);
+        }, 200);
+      }
+    });
+
+    tracks.forEach((track) => {
+      track.addEventListener("click", () => {
+        loadAndPlay(track.dataset.uri, track.dataset.name);
+      });
+    });
+  </script>
 </body>
 </html>
