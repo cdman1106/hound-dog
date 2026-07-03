@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOUND DOG NFC</title>
+
+  <style>
+    :root {
+      --cd: url("https://www.dropbox.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&st=13aozqff&raw=1");
+      --bg: url("https://www.dropbox.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&st=r5ffo12u&raw=1");
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, sans-serif;
+      color: white;
+      background: #050505;
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      background-image:
+        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.9)),
+        var(--bg);
+      background-size: cover;
+      background-position: center top;
+      padding: 38px 20px 46px;
+      text-align: center;
+    }
+
+    .tag {
+      color: #ff3434;
+      letter-spacing: 7px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(52px, 14vw, 96px);
+      line-height: .9;
+      color: #d71920;
+      font-weight: 900;
+      letter-spacing: -2px;
+      text-shadow: 0 0 25px rgba(255,0,0,.45);
+    }
+
+    .copy {
+      margin: 18px 0 6px;
+      font-size: 30px;
+      font-weight: bold;
+      text-shadow: 0 0 18px black;
+    }
+
+    .since {
+      color: #ff3434;
+      letter-spacing: 8px;
+      font-size: 12px;
+      margin-bottom: 28px;
+    }
+
+    .disc {
+      width: min(78vw, 430px);
+      aspect-ratio: 1 / 1;
+      margin: 0 auto 28px;
+      background-image: var(--cd);
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      animation: spin 9s linear infinite;
+      filter: drop-shadow(0 0 28px rgba(255,0,0,.55));
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .play-title {
+      color: #ff3434;
+      letter-spacing: 3px;
+      font-weight: bold;
+      margin: 12px 0 18px;
+    }
+
+    .song {
+      max-width: 620px;
+      margin: 12px auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      border: 1px solid rgba(255, 52, 52, .7);
+      border-radius: 14px;
+      background: rgba(0,0,0,.62);
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 0 18px rgba(255,0,0,.16);
+      backdrop-filter: blur(8px);
+    }
+
+    .play {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid #ff3434;
+      display: grid;
+      place-items: center;
+      color: #ff3434;
+      flex: 0 0 auto;
+    }
+
+    .song-name {
+      text-align: left;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .artist {
+      text-align: left;
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .spotify {
+      max-width: 620px;
+      margin: 28px auto 0;
+      display: block;
+      padding: 18px;
+      border-radius: 999px;
+      color: #ff3434;
+      border: 1px solid #ff3434;
+      background: rgba(0,0,0,.65);
+      text-decoration: none;
+      font-weight: 900;
+      box-shadow: 0 0 24px rgba(255,0,0,.25);
+    }
+
+    .footer {
+      margin-top: 34px;
+      color: #777;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="tag">NFC ROCK EXPERIENCE</div>
+
+    <h1>HOUND DOG</h1>
+
+    <div class="copy">魂を鳴らせ。</div>
+    <div class="since">SINCE 1980</div>
+
+    <div class="disc"></div>
+
+    <div class="play-title">PLAY MUSIC</div>
+
+    <a class="song" href="https://open.spotify.com/search/ff%20%E3%83%95%E3%82%A9%E3%83%AB%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A2%20HOUND%20DOG" target="_blank">
+      <div class="play">▶</div>
+      <div>
+        <div class="song-name">ff（フォルティシモ）</div>
+        <div class="artist">HOUND DOG</div>
+      </div>
+    </a>
+
+    <a class="song" href="https://open.spotify.com/search/ONLY%20LOVE%20HOUND%20DOG" target="_blank">
+      <div class="play">▶</div>
+      <div>
+        <div class="song-name">ONLY LOVE</div>
+        <div class="artist">HOUND DOG</div>
+      </div>
+    </a>
+
+    <a class="song" href="https://open.spotify.com/search/BRIDGE%20%E3%81%82%E3%81%AE%E6%A9%8B%E3%82%92%E3%82%8F%E3%81%9F%E3%82%8B%E3%81%A8%E3%81%8D%20HOUND%20DOG" target="_blank">
+      <div class="play">▶</div>
+      <div>
+        <div class="song-name">BRIDGE〜あの橋をわたるとき〜</div>
+        <div class="artist">HOUND DOG</div>
+      </div>
+    </a>
+
+    <a class="song" href="https://open.spotify.com/search/ROCKS%20HOUND%20DOG" target="_blank">
+      <div class="play">▶</div>
+      <div>
+        <div class="song-name">R★O★C★K★S</div>
+        <div class="artist">HOUND DOG</div>
+      </div>
+    </a>
+
+    <a class="spotify" href="https://open.spotify.com/search/HOUND%20DOG" target="_blank">
+      SpotifyでHOUND DOGを聴く
+    </a>
+
+    <div class="footer">© NFC ROCK EXPERIENCE</div>
+  </main>
+</body>
+</html>
