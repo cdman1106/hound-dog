@@ -2,149 +2,169 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#070408" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#070102" />
   <title>HOUND DOG | NFC ROCK EXPERIENCE</title>
 
   <style>
     :root {
-      --red: #f52c35;
-      --red-dark: #8d0910;
-      --black: #070408;
-
-      --bg-image: url("https://www.dropbox.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&raw=1");
-
-      --cd-image: url("https://www.dropbox.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&raw=1");
+      --red: #e31922;
+      --red-bright: #ff3c45;
+      --black: #050102;
+      --panel: rgba(8, 2, 4, 0.74);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      background: var(--black);
-    }
-
+    html,
     body {
       margin: 0;
       min-width: 320px;
+      min-height: 100%;
       background: var(--black);
       color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-        "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
     }
 
-    body::before {
-      content: "";
+    /* 背景画像 */
+    .background {
       position: fixed;
       inset: 0;
-      z-index: -2;
-      background-image: var(--bg-image);
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      filter: saturate(1.08) contrast(1.05);
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
+      z-index: 0;
+      overflow: hidden;
       background:
+        radial-gradient(circle at top, #4d0307 0%, #090103 52%, #000 100%);
+    }
+
+    .background img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(1.16) contrast(1.08);
+      transform: scale(1.02);
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          circle at 50% 22%,
+          rgba(170, 0, 10, 0.06),
+          transparent 38%
+        ),
         linear-gradient(
-          180deg,
-          rgba(3, 2, 7, 0.2) 0%,
-          rgba(4, 2, 6, 0.45) 38%,
-          rgba(0, 0, 0, 0.94) 82%,
-          #000 100%
+          to bottom,
+          rgba(0, 0, 0, 0.15) 0%,
+          rgba(0, 0, 0, 0.3) 31%,
+          rgba(0, 0, 0, 0.76) 67%,
+          rgba(0, 0, 0, 0.98) 100%
         );
     }
 
     .page {
-      width: min(100%, 620px);
+      position: relative;
+      z-index: 2;
+      width: min(100%, 560px);
+      min-height: 100svh;
       margin: 0 auto;
       padding:
         max(26px, env(safe-area-inset-top))
         16px
-        max(42px, env(safe-area-inset-bottom));
+        max(44px, env(safe-area-inset-bottom));
       text-align: center;
     }
 
     .eyebrow {
-      margin: 0 0 18px;
-      color: var(--red);
+      margin: 0 0 17px;
+      color: var(--red-bright);
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 5px;
+      text-shadow: 0 0 14px rgba(255, 0, 0, 0.85);
     }
 
     h1 {
       margin: 0;
       color: var(--red);
-      font-size: clamp(48px, 14vw, 78px);
+      font-size: clamp(50px, 14vw, 78px);
       font-weight: 1000;
-      line-height: 0.88;
+      line-height: 0.86;
       letter-spacing: -3px;
       text-shadow:
-        0 0 20px rgba(245, 44, 53, 0.5),
-        0 8px 28px rgba(0, 0, 0, 0.8);
+        0 0 18px rgba(255, 0, 0, 0.58),
+        0 7px 26px rgba(0, 0, 0, 0.9);
     }
 
     .catch {
       margin: 18px 0 6px;
-      font-size: clamp(24px, 7vw, 34px);
+      font-size: clamp(23px, 6.7vw, 32px);
       font-weight: 900;
       letter-spacing: 0.08em;
-      text-shadow: 0 3px 15px #000;
+      text-shadow: 0 3px 14px #000;
     }
 
     .since {
       margin: 0 0 25px;
-      color: var(--red);
+      color: var(--red-bright);
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 7px;
     }
 
+    /* 回転CD */
     .disc-button {
       position: relative;
       display: block;
-      width: min(82vw, 410px);
+      width: min(84vw, 400px);
       aspect-ratio: 1;
       margin: 0 auto;
       padding: 0;
+      overflow: hidden;
       border: 0;
       border-radius: 50%;
-      overflow: hidden;
-      background: transparent;
+      background: #150002;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
-      filter: drop-shadow(0 0 28px rgba(245, 44, 53, 0.62));
+      -webkit-tap-highlight-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.62));
     }
 
     .disc-button:active {
       transform: scale(0.97);
     }
 
-    .disc {
+    .disc-button img {
       width: 100%;
       height: 100%;
-      background-image: var(--cd-image);
-      background-size: cover;
-      background-position: center;
+      display: block;
+      object-fit: cover;
       border-radius: 50%;
-      animation: rotate-disc 12s linear infinite;
+      animation: disc-spin 11s linear infinite;
       animation-play-state: paused;
     }
 
-    .disc.is-playing {
-      animation-duration: 4s;
+    .disc-button.playing img {
+      animation-duration: 3.8s;
       animation-play-state: running;
     }
 
-    @keyframes rotate-disc {
+    @keyframes disc-spin {
       to {
         transform: rotate(360deg);
       }
@@ -153,38 +173,53 @@
     .disc-status {
       position: absolute;
       left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
+      bottom: 16px;
       width: max-content;
-      max-width: calc(100% - 30px);
-      padding: 10px 16px;
-      border: 1px solid rgba(245, 44, 53, 0.9);
+      max-width: calc(100% - 28px);
+      padding: 10px 15px;
+      transform: translateX(-50%);
+      border: 1px solid rgba(255, 60, 69, 0.95);
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(0, 0, 0, 0.75);
       color: #fff;
       font-size: 12px;
       font-weight: 900;
-      letter-spacing: 0.08em;
-      box-shadow: 0 0 20px rgba(245, 44, 53, 0.34);
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 22px rgba(255, 0, 0, 0.36);
       pointer-events: none;
     }
 
-    .disc-status.playing {
-      color: var(--red);
+    .disc-button.playing .disc-status {
+      color: var(--red-bright);
     }
 
-    .player-box {
-      display: none;
-      margin: 22px auto 0;
+    /* Spotify埋め込み */
+    .player-panel {
+      max-height: 0;
+      margin-top: 0;
       overflow: hidden;
-      border: 1px solid rgba(245, 44, 53, 0.5);
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.68);
-      box-shadow: 0 0 28px rgba(245, 44, 53, 0.2);
+      opacity: 0;
+      transform: translateY(-8px);
+      transition:
+        max-height 0.35s ease,
+        margin 0.35s ease,
+        opacity 0.35s ease,
+        transform 0.35s ease;
     }
 
-    .player-box.show {
-      display: block;
+    .player-panel.open {
+      max-height: 190px;
+      margin-top: 21px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .player-inner {
+      overflow: hidden;
+      border: 1px solid rgba(255, 60, 69, 0.5);
+      border-radius: 17px;
+      background: rgba(0, 0, 0, 0.74);
+      box-shadow: 0 0 28px rgba(255, 0, 0, 0.22);
     }
 
     #spotify-player iframe {
@@ -198,16 +233,17 @@
       justify-content: center;
       gap: 10px;
       margin: 30px 0 16px;
-      color: var(--red);
+      color: var(--red-bright);
       font-size: 12px;
       font-weight: 900;
       letter-spacing: 4px;
+      text-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
     }
 
     .section-title::before,
     .section-title::after {
       content: "";
-      width: 48px;
+      width: 44px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--red));
     }
@@ -228,15 +264,15 @@
       min-height: 68px;
       padding: 12px;
       gap: 13px;
-      border: 1px solid rgba(245, 44, 53, 0.62);
+      border: 1px solid rgba(255, 60, 69, 0.58);
       border-radius: 15px;
-      background: rgba(0, 0, 0, 0.65);
+      background: var(--panel);
       color: #fff;
       text-align: left;
       cursor: pointer;
+      touch-action: manipulation;
       backdrop-filter: blur(10px);
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
 
     .track:active {
@@ -244,8 +280,9 @@
     }
 
     .track.active {
-      border-color: var(--red);
-      box-shadow: 0 0 20px rgba(245, 44, 53, 0.28);
+      border-color: var(--red-bright);
+      background: rgba(58, 0, 4, 0.82);
+      box-shadow: 0 0 22px rgba(255, 0, 0, 0.28);
     }
 
     .track-play {
@@ -254,9 +291,9 @@
       width: 38px;
       height: 38px;
       place-items: center;
-      border: 1px solid var(--red);
+      border: 1px solid var(--red-bright);
       border-radius: 50%;
-      color: var(--red);
+      color: var(--red-bright);
       font-size: 13px;
     }
 
@@ -278,38 +315,42 @@
       color: #aaa;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
     }
 
-    .spotify-mark {
+    .track-mark {
       color: #aaa;
-      font-size: 20px;
+      font-size: 18px;
     }
 
-    .open-spotify {
+    .spotify-link {
       display: block;
-      margin: 24px 0 0;
+      margin-top: 24px;
       padding: 17px 18px;
-      border: 1px solid var(--red);
+      border: 1px solid var(--red-bright);
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.75);
-      color: var(--red);
+      background: rgba(0, 0, 0, 0.76);
+      color: var(--red-bright);
       font-size: 15px;
       font-weight: 900;
       text-decoration: none;
-      box-shadow: 0 0 24px rgba(245, 44, 53, 0.2);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
     }
 
     .footer {
       margin-top: 34px;
-      color: rgba(255, 255, 255, 0.42);
+      color: rgba(255, 255, 255, 0.45);
       font-size: 10px;
       letter-spacing: 3px;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 700px) {
       .page {
         padding-top: 42px;
+      }
+
+      .track-list {
+        grid-template-columns: 1fr 1fr;
       }
 
       .disc-button {
@@ -320,6 +361,12 @@
 </head>
 
 <body>
+  <!-- 背景を直接imgとして読み込む -->
+  <div class="background">
+    <img id="backgroundImage" alt="" fetchpriority="high" />
+  </div>
+  <div class="background-overlay"></div>
+
   <main class="page">
     <p class="eyebrow">NFC ROCK EXPERIENCE</p>
 
@@ -327,107 +374,206 @@
     <div class="catch">魂を鳴らせ。</div>
     <p class="since">SINCE 1980</p>
 
-    <!-- CDをタップすると再生 -->
-    <button class="disc-button" id="discButton" aria-label="CDをタップして再生">
-      <div class="disc" id="disc"></div>
-      <div class="disc-status" id="discStatus">▶ CDをタップして再生</div>
+    <!-- CDタップで再生 / 一時停止 -->
+    <button
+      class="disc-button"
+      id="discButton"
+      aria-label="CDをタップして再生"
+    >
+      <img id="discImage" alt="HOUND DOG CD" />
+      <span class="disc-status" id="discStatus">
+        ▶ CDをタップして再生
+      </span>
     </button>
 
     <!-- Spotifyプレーヤー -->
-    <div class="player-box" id="playerBox">
-      <div id="spotify-player"></div>
-    </div>
+    <section class="player-panel" id="playerPanel">
+      <div class="player-inner">
+        <div id="spotify-player"></div>
+      </div>
+    </section>
 
     <div class="section-title">PLAY MUSIC</div>
 
-    <div class="track-list">
-      <button
-        class="track active"
-        data-uri="spotify:track:23a4YCoujGcwDqbD9HWLrC"
-        data-name="ff（フォルティシモ）"
-      >
-        <div class="track-play">▶</div>
-        <div class="track-info">
-          <div class="track-name">ff（フォルティシモ）</div>
-          <div class="track-artist">大友康平 / HOUND DOG</div>
-        </div>
-        <div class="spotify-mark">◉</div>
-      </button>
-
-      <button
-        class="track"
-        data-uri="spotify:track:6iy11k0Q215DqrCrlG9RXZ"
-        data-name="ONLY LOVE"
-      >
-        <div class="track-play">▶</div>
-        <div class="track-info">
-          <div class="track-name">ONLY LOVE</div>
-          <div class="track-artist">大友康平 / HOUND DOG</div>
-        </div>
-        <div class="spotify-mark">◉</div>
-      </button>
-
-      <button
-        class="track"
-        data-uri="spotify:track:10NFZL2J9DG8qrCDEP4mPX"
-        data-name="BRIDGE ～あの橋をわたるとき～"
-      >
-        <div class="track-play">▶</div>
-        <div class="track-info">
-          <div class="track-name">BRIDGE ～あの橋をわたるとき～</div>
-          <div class="track-artist">大友康平 / HOUND DOG</div>
-        </div>
-        <div class="spotify-mark">◉</div>
-      </button>
-
-      <button
-        class="track"
-        data-uri="spotify:track:3mFxdqsVSvuZCmkqZFC5fb"
-        data-name="ROCKS"
-      >
-        <div class="track-play">▶</div>
-        <div class="track-info">
-          <div class="track-name">ROCKS</div>
-          <div class="track-artist">大友康平 / HOUND DOG</div>
-        </div>
-        <div class="spotify-mark">◉</div>
-      </button>
-    </div>
+    <div class="track-list" id="trackList"></div>
 
     <a
-      class="open-spotify"
-      href="https://open.spotify.com/artist/2y7JQdXnyFymxy4V0HOUND"
+      class="spotify-link"
+      id="spotifyLink"
+      href="https://open.spotify.com/track/23a4YCoujGcwDqbD9HWLrC"
       target="_blank"
       rel="noopener"
     >
-      SpotifyでHOUND DOGを開く →
+      Spotifyでこの曲を開く →
     </a>
 
     <div class="footer">© NFC ROCK EXPERIENCE</div>
   </main>
 
-  <!-- Spotify公式IFrame API -->
   <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 
   <script>
+    /* Dropbox画像URL
+       1つ目が通常のraw画像URL
+       2つ目は読み込み失敗時の予備URL */
+    const BACKGROUND_IMAGES = [
+      "https://www.dropbox.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&st=r5ffo12u&raw=1",
+      "https://dl.dropboxusercontent.com/scl/fi/0x2h9qhdj1jv1cf0z5kh8/file_0000000008e87206ad7e60e684a83658.png?rlkey=lb32ulzece5bmrogeps69ldvv&st=r5ffo12u"
+    ];
+
+    const CD_IMAGES = [
+      "https://www.dropbox.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&st=13aozqff&raw=1",
+      "https://dl.dropboxusercontent.com/scl/fi/yc0f5c9fdpr7sbpfkciik/file_00000000553c7206959bc4005be382a2.png?rlkey=19nw5pfemvjgizpizkxup7yda&st=13aozqff"
+    ];
+
+    function loadImageWithFallback(imageElement, sources) {
+      let sourceIndex = 0;
+
+      function tryNextSource() {
+        if (sourceIndex >= sources.length) return;
+        imageElement.src = sources[sourceIndex];
+        sourceIndex += 1;
+      }
+
+      imageElement.addEventListener("error", tryNextSource);
+      tryNextSource();
+    }
+
+    loadImageWithFallback(
+      document.getElementById("backgroundImage"),
+      BACKGROUND_IMAGES
+    );
+
+    loadImageWithFallback(
+      document.getElementById("discImage"),
+      CD_IMAGES
+    );
+
+    /* 追加した曲一覧 */
+    const songs = [
+      {
+        title: "ff（フォルティシモ）",
+        uri: "spotify:track:23a4YCoujGcwDqbD9HWLrC",
+        url: "https://open.spotify.com/track/23a4YCoujGcwDqbD9HWLrC"
+      },
+      {
+        title: "BRIDGE ～あの橋をわたるとき～",
+        uri: "spotify:track:10NFZL2J9DG8qrCDEP4mPX",
+        url: "https://open.spotify.com/track/10NFZL2J9DG8qrCDEP4mPX"
+      },
+      {
+        title: "ONLY LOVE",
+        uri: "spotify:track:6iy11k0Q215DqrCrlG9RXZ",
+        url: "https://open.spotify.com/track/6iy11k0Q215DqrCrlG9RXZ"
+      },
+      {
+        title: "ROCKS",
+        uri: "spotify:track:3mFxdqsVSvuZCmkqZFC5fb",
+        url: "https://open.spotify.com/track/3mFxdqsVSvuZCmkqZFC5fb"
+      },
+      {
+        title: "嵐の金曜日",
+        uri: "spotify:track:6HKA6Ui8yNm7dteVTdAxXk",
+        url: "https://open.spotify.com/track/6HKA6Ui8yNm7dteVTdAxXk"
+      },
+      {
+        title: "ROAD RUNNER",
+        uri: "spotify:track:7hmRDnVwx3HOz43CLDzqFp",
+        url: "https://open.spotify.com/track/7hmRDnVwx3HOz43CLDzqFp"
+      },
+      {
+        title: "涙のBIRTHDAY",
+        uri: "spotify:track:3Dbd28QRK3z1Waqx6vrE3P",
+        url: "https://open.spotify.com/track/3Dbd28QRK3z1Waqx6vrE3P"
+      },
+      {
+        title: "ラスト・ヒーロー",
+        uri: "spotify:track:645Z7lCQ3SXdBXNtr63F1e",
+        url: "https://open.spotify.com/track/645Z7lCQ3SXdBXNtr63F1e"
+      },
+      {
+        title: "SMILE FOR ME",
+        uri: "spotify:track:30aAjH1IYIvvc4k5mf1iOj",
+        url: "https://open.spotify.com/track/30aAjH1IYIvvc4k5mf1iOj"
+      },
+      {
+        title: "AMBITIOUS",
+        uri: "spotify:track:5qu5qgWJxtH1X0RmZX3G3O",
+        url: "https://open.spotify.com/track/5qu5qgWJxtH1X0RmZX3G3O"
+      },
+      {
+        title: "DESTINY",
+        uri: "spotify:track:7pazzaYxkgKTRYd1wG2jRn",
+        url: "https://open.spotify.com/track/7pazzaYxkgKTRYd1wG2jRn"
+      },
+      {
+        title: "ラスト・シーン",
+        uri: "spotify:track:3qkt42ayMxu0gsyhYhWpLc",
+        url: "https://open.spotify.com/track/3qkt42ayMxu0gsyhYhWpLc"
+      }
+    ];
+
     const discButton = document.getElementById("discButton");
-    const disc = document.getElementById("disc");
     const discStatus = document.getElementById("discStatus");
-    const playerBox = document.getElementById("playerBox");
-    const spotifyPlayer = document.getElementById("spotify-player");
-    const tracks = [...document.querySelectorAll(".track")];
+    const playerPanel = document.getElementById("playerPanel");
+    const trackList = document.getElementById("trackList");
+    const spotifyLink = document.getElementById("spotifyLink");
 
     let controller = null;
-    let activeUri = "spotify:track:23a4YCoujGcwDqbD9HWLrC";
-    let activeName = "ff（フォルティシモ）";
     let isPlaying = false;
-    let pendingPlay = false;
+    let waitingForSpotify = false;
+    let activeSong = songs[0];
 
-    function updateDiscState(playing) {
+    function renderTracks() {
+      trackList.innerHTML = songs.map((song, index) => `
+        <button
+          class="track ${index === 0 ? "active" : ""}"
+          data-uri="${song.uri}"
+          data-url="${song.url}"
+          data-title="${song.title}"
+          aria-label="${song.title}を再生"
+        >
+          <span class="track-play">▶</span>
+
+          <span class="track-info">
+            <span class="track-name">${song.title}</span>
+            <span class="track-artist">大友康平 / HOUND DOG</span>
+          </span>
+
+          <span class="track-mark">◉</span>
+        </button>
+      `).join("");
+
+      document.querySelectorAll(".track").forEach((track) => {
+        track.addEventListener("click", () => {
+          activeSong = {
+            title: track.dataset.title,
+            uri: track.dataset.uri,
+            url: track.dataset.url
+          };
+
+          document.querySelectorAll(".track").forEach((item) => {
+            item.classList.toggle("active", item === track);
+          });
+
+          spotifyLink.href = activeSong.url;
+          spotifyLink.textContent = `Spotifyで「${activeSong.title}」を開く →`;
+
+          openPlayer();
+          playActiveSong();
+        });
+      });
+    }
+
+    renderTracks();
+
+    function openPlayer() {
+      playerPanel.classList.add("open");
+    }
+
+    function setDiscState(playing) {
       isPlaying = playing;
-
-      disc.classList.toggle("is-playing", playing);
-      discStatus.classList.toggle("playing", playing);
+      discButton.classList.toggle("playing", playing);
 
       if (playing) {
         discStatus.textContent = "❚❚ タップで一時停止";
@@ -436,78 +582,65 @@
       }
     }
 
-    function setActiveTrack(uri) {
-      tracks.forEach((track) => {
-        track.classList.toggle("active", track.dataset.uri === uri);
-      });
-    }
-
-    function loadAndPlay(uri, name) {
-      activeUri = uri;
-      activeName = name;
-
-      playerBox.classList.add("show");
-      setActiveTrack(uri);
+    function playActiveSong() {
+      openPlayer();
 
       if (!controller) {
-        pendingPlay = true;
+        waitingForSpotify = true;
         discStatus.textContent = "Spotifyを読み込み中...";
         return;
       }
 
-      controller.loadUri(uri);
-      updateDiscState(true);
-
-      setTimeout(() => {
-        controller.play();
-      }, 250);
+      controller.loadEntity(activeSong.uri);
+      controller.play();
+      setDiscState(true);
     }
 
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
-      const options = {
-        uri: activeUri,
-        width: "100%",
-        height: 152,
-        theme: "dark"
-      };
-
-      IFrameAPI.createController(spotifyPlayer, options, (EmbedController) => {
-        controller = EmbedController;
-
-        if (pendingPlay) {
-          pendingPlay = false;
-          loadAndPlay(activeUri, activeName);
-        }
-      });
-    };
-
     discButton.addEventListener("click", () => {
-      playerBox.classList.add("show");
+      openPlayer();
 
       if (!controller) {
-        pendingPlay = true;
+        waitingForSpotify = true;
         discStatus.textContent = "Spotifyを読み込み中...";
         return;
       }
 
       if (isPlaying) {
         controller.pause();
-        updateDiscState(false);
+        setDiscState(false);
       } else {
-        controller.loadUri(activeUri);
-
-        setTimeout(() => {
-          controller.play();
-          updateDiscState(true);
-        }, 200);
+        controller.resume();
+        setDiscState(true);
       }
     });
 
-    tracks.forEach((track) => {
-      track.addEventListener("click", () => {
-        loadAndPlay(track.dataset.uri, track.dataset.name);
-      });
-    });
+    /* Spotify公式IFrame API */
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const options = {
+        uri: activeSong.uri,
+        width: "100%",
+        height: 152,
+        theme: "dark"
+      };
+
+      IFrameAPI.createController(
+        document.getElementById("spotify-player"),
+        options,
+        (EmbedController) => {
+          controller = EmbedController;
+
+          controller.addListener("playback_update", (event) => {
+            const paused = event.data.isPaused;
+            setDiscState(!paused);
+          });
+
+          if (waitingForSpotify) {
+            waitingForSpotify = false;
+            playActiveSong();
+          }
+        }
+      );
+    };
   </script>
 </body>
 </html>
